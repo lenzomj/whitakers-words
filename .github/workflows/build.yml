@@ -1,0 +1,21 @@
+name: Build
+
+on:
+  push
+
+jobs:
+  build-x86_64:
+    name: Standard build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup toolchain
+        uses: ada-actions/toolchain@dev
+        with:
+          distrib: fsf
+          target: native
+      - name: Check out repository
+        uses: actions/checkout@v2
+      - name: Build all
+        run: make
+        shell: bash
+
