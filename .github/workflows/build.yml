@@ -5,7 +5,7 @@ on:
 
 jobs:
   build-x86_64:
-    name: Standard build
+    name: Build for x86 (64-bit)
     runs-on: ubuntu-latest
     steps:
       - name: Setup toolchain
@@ -15,7 +15,25 @@ jobs:
           target: native
       - name: Check out repository
         uses: actions/checkout@v2
-      - name: Build all
-        run: make
+      - name: Build from source
+        run: make datadir=/usr/local/share/words commands sorter
         shell: bash
 
+  build-arm_32:
+    name: Build for ARM (32-bit)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup toolchain
+        uses: ada-actions/toolchain@dev
+        with:
+          distrib: community
+          target: arm-elf
+      - name: Check out repository
+        uses: actions/checkout@v2
+      - name: Build from source
+        run: |
+          make \
+          datadir="/usr/local/share/words" \
+          GPRBUILD_OPTIONS="-j4 --target=arm-eabi" \
+          commands sorter
+        shell: bash
