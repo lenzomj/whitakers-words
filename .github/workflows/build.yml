@@ -9,7 +9,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Setup toolchain
-        uses: ada-actions/toolchain@dev
+        uses: ada-actions/toolchain@ce2021
         with:
           distrib: fsf
           target: native
@@ -24,7 +24,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Setup toolchain
-        uses: ada-actions/toolchain@dev
+        uses: ada-actions/toolchain@ce2021
         with:
           distrib: community
           target: arm-elf
