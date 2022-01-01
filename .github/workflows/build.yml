@@ -4,7 +4,7 @@ on:
   push
 
 jobs:
-  build-x86_64:
+  build-amd64:
     name: Build for x86 (64-bit)
     runs-on: ubuntu-latest
     steps:
@@ -18,8 +18,13 @@ jobs:
       - name: Build from source
         run: make datadir=/usr/local/share/words commands sorter
         shell: bash
+      - name: Upload binary snapshots
+        uses: actions/upload-artifact@v2
+        with:
+          name: binaries_amd64
+          path: bin
 
-  build-arm_32:
+  build-arm32:
     name: Build for ARM (32-bit)
     runs-on: ubuntu-latest
     steps:
@@ -33,10 +38,15 @@ jobs:
       - name: Build from source
         run: |
           gprconfig --target=arm-linux-gnueabi && \
-          gprconfig && \
           make \
           datadir="/usr/local/share/words" \
           GPRBUILD_OPTIONS="-j4 --target=arm-linux-gnueabi" \
           commands sorter && \
           file bin/words
         shell: bash
+      - name: Upload binary snapshots
+        uses: actions/upload-artifact@v2
+        with:
+          name: binaries_arm
+          path: bin
+
