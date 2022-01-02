@@ -41,6 +41,7 @@ jobs:
           make \
           datadir="/usr/local/share/words" \
           GPRBUILD_OPTIONS="-j4 --target=arm-linux-gnueabi" \
+          ADAFLAGS="-Wl,-pie" \
           commands sorter && \
           file bin/words
         shell: bash
